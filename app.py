@@ -3,7 +3,6 @@ import uuid
 import re
 import unirest
 import pickledb
-import json
 import time
 import rules
 from bottle import route, run, get, post, static_file, request, response
