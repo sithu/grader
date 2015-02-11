@@ -34,12 +34,15 @@ def accept_submission():
     score = 0
     step = 1
     fails = []
+    steps = []
     
     while step <= len(rule.keys()):
         currStep = 'step_%d' % step
         input = request.forms.get(currStep)
         if input is None or len(input.strip()) < 1:
             input = ""
+        
+        steps.append(input)
             
         currScore = calculate(rule['step_%d' % step], input)
         if currScore < 1:
@@ -50,6 +53,7 @@ def accept_submission():
         
         
     submission_id = uuid.uuid1().bytes.encode('base64').rstrip('=\n').replace('/', '_')
+    response = { 'sjsu_id': id, 'your_score': score, 'submission_id' : submission_id }
     
     # Store the score
     now = time.strftime("%c")
@@ -57,15 +61,17 @@ def accept_submission():
     value = {
         'your_score' : score,
         'submission_id' : submission_id,
-        'submission_date' : now
+        'submission_date' : now,
+        'steps' : steps,
     }
+    if len(fails) > 0:
+        response['missed'] = fails
+        value['missed'] = fails
+        
     db.set(key, value)
     if not db.dump():
         return { 'error' : "Failed to save the data!" }
         
-    response = { 'sjsu_id': id, 'your_score': score, 'submission_id' : submission_id }
-    if len(fails) > 0:
-        response['missed'] = fails
     
     return response
         
