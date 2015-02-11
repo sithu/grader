@@ -2,7 +2,7 @@
 
 ### Dependencies
 
-'''sh
+```sh
 pip install unirest
 pip install pickledb
-'''
+```
