@@ -38,7 +38,7 @@ def index():
 @get('/scores/all')
 @auth_basic(check)
 def get_scores():
-    return db.dgetall('scores'):
+    return db.dgetall('scores')
         
 @get('/students/<id>')
 @auth_basic(check)
