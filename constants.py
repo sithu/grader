@@ -1,1 +1,1 @@
-SUBMISSIONS = [ 'lab1' ]
+SUBMISSIONS = [ 'lab1', 'assignment1' ]
