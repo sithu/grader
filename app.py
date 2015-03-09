@@ -221,6 +221,7 @@ def check_http_GET_all(url, basicAuth, size):
     
     try:
         response = unirest.get(url, auth = basicAuth)
+        
         return len(response.body) > size
     except Exception, e:
         print e 
@@ -277,7 +278,6 @@ def check_http_POST_validation(_url, basicAuth, _request, _resp_code):
             headers={ "Accept": "application/json", "Content-Type": "application/json" }, 
             params=request)
         
-        print response.body
         print "response_code=%s, body=%s" % (response.code, response.body)
         return response.code == int(_resp_code)
     except Exception, e:
@@ -297,9 +297,9 @@ def check_http_PUT(url, basicAuth, _request=None, _response=None, _resp_code=200
             params=request, auth = basicAuth)
         
         if not _response:
-            return response.code == _resp_code and check_response(_response, response.body)
+            return response.code >= _resp_code and check_response(_response, response.body)
         else:
-            return response.code == _resp_code
+            return response.code >= _resp_code
     except Exception, e:
         print e 
     
