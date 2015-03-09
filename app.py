@@ -35,13 +35,10 @@ def check(user, passwd):
 def index():
     return "OK"
   
-@get('/scores')
+@get('/scores/all')
 @auth_basic(check)
 def get_scores():
-    for student in db.dgetall('scores'):
-        print student.lab1.your_score
-        
-    return "GET ALL SCORES"
+    return db.dgetall('scores'):
         
 @get('/students/<id>')
 @auth_basic(check)
