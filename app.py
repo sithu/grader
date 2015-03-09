@@ -44,6 +44,7 @@ def get_scores():
     return "GET ALL SCORES"
         
 @get('/students/<id>')
+@auth_basic(check)
 def grades(id=None):
     return db.dget('scores', id)
     
